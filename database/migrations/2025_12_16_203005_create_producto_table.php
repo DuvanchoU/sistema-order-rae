@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    // Ejecutar las migraciones.
     public function up(): void
     {
         Schema::create('producto', function (Blueprint $table) {
@@ -19,12 +17,12 @@ return new class extends Migration
             $table->string('tipo_madera', 45)->nullable();
             $table->string('color_producto', 45)->nullable();
             $table->decimal('precio_actual', 15);
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    // Revertir las migraciones.
     public function down(): void
     {
         Schema::dropIfExists('producto');

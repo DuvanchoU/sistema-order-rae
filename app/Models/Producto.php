@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Categoria;
 
 class Producto extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'producto';
     protected $primaryKey = 'id_producto';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'codigo_producto',
@@ -18,10 +22,10 @@ class Producto extends Model
         'color_producto',
         'precio_actual',
     ];
-
-    /**
-     * Un producto PERTENECE A una categoría
-     */
+    
+    protected $dates = ['deleted_at'];
+    
+    // Un producto PERTENECE A una categoría
     public function categoria()
     {
         return $this->belongsTo(
@@ -31,9 +35,7 @@ class Producto extends Model
         );
     }
 
-    /**
-     * Un producto TIENE MUCHOS detalles de compra
-     */
+    // Un producto TIENE MUCHOS detalles de compra
     public function detallesCompra()
     {
         return $this->hasMany(
@@ -43,9 +45,7 @@ class Producto extends Model
         );
     }
 
-    /**
-     * Un producto TIENE MUCHOS detalles de venta
-     */
+    //Un producto TIENE MUCHOS detalles de venta
     public function detallesVenta()
     {
         return $this->hasMany(
@@ -55,9 +55,7 @@ class Producto extends Model
         );
     }
 
-    /**
-     * Un producto TIENE MUCHOS inventarios
-     */
+    // Un producto TIENE MUCHOS inventarios
     public function inventarios()
     {
         return $this->hasMany(
@@ -76,4 +74,9 @@ class Producto extends Model
         );
     }
 
+    // Obtener la clave de ruta para el modelo.    
+    public function getRouteKeyName()
+    {
+        return 'id_producto';
+    }
 }
