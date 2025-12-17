@@ -1,32 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sistema ORDER RAE')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- O si usas compilación manual: -->
-    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+<meta charset="UTF-8">
+<title>@yield('title','ORDER RAE')</title>
+@vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-gray-100 min-h-screen">
 
-    <header class="bg-blue-700 text-white shadow">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-xl font-bold">ORDER RAE</h1>
-            <nav>
-                <a href="{{ route('productos.index') }}" class="hover:underline">Productos</a>
-                <!-- Puedes añadir más enlaces luego: Clientes, Ventas, Reportes, etc. -->
-            </nav>
-        </div>
-    </header>
 
-    <main class="container mx-auto py-8 px-4">
-        @yield('content')
-    </main>
+<body class="bg-[#F8F5F0]" x-data="{ sidebarOpen: true }">
 
-    <footer class="bg-gray-800 text-white text-center py-4 text-sm mt-12">
-        &copy; {{ date('Y') }} ORDER RAE - Desarrollado por Duvan Felipe Uribe Tejada
-    </footer>
+
+<div class="flex min-h-screen">
+
+
+<!-- SIDEBAR -->
+<aside
+class="bg-[#EFE6D8] w-64 p-6 transition-all duration-300"
+:class="sidebarOpen ? 'block' : 'hidden md:block'">
+
+
+<h1 class="text-xl font-bold text-[#6B5B3E] mb-8">ORDER RAE</h1>
+
+
+<nav class="space-y-3">
+<a href="/dashboard" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Dashboard</a>
+<a href="/productos" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Productos</a>
+<a href="/categorias" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Categorías</a>
+</nav>
+</aside>
+
+
+<!-- CONTENIDO -->
+<main class="flex-1">
+
+
+<!-- HEADER -->
+<header class="bg-white shadow px-6 py-4 flex items-center gap-4">
+<button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-xl">☰</button>
+<h2 class="font-semibold text-lg">@yield('title')</h2>
+</header>
+
+
+<!-- PAGE -->
+<section class="p-6">
+@yield('content')
+</section>
+
+
+</main>
+</div>
+
 
 </body>
 </html>

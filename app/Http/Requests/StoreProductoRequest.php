@@ -22,7 +22,7 @@ class StoreProductoRequest extends FormRequest
                 Rule::unique('producto', 'codigo_producto'),
             ],
             'referencia_producto' => 'nullable|string|max:100',
-            'categoria_id' => 'required|exists:categoria,id_categorias',
+            'categoria_id' => 'required|exists:categorias,id_categorias',
             'tipo_madera' => 'nullable|string|max:45',
             'color_producto' => 'nullable|string|max:45',
             'precio_actual' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,2})?$/',
