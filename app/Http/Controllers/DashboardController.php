@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use App\Models\Produccion;
 use App\Models\Roles;
 use App\Models\Usuario;
+use App\Models\Venta;
 
 class DashboardController extends Controller
 {
@@ -18,6 +19,7 @@ class DashboardController extends Controller
             'totalProducciones' => \App\Models\Produccion::count(),
             'totalRoles' => \App\Models\Roles::count(),
             'totalUsuarios' => \App\Models\Usuario::count(),
+            'totalVentas'=> \App\Models\Venta::count(),
         ]);
     }
 }

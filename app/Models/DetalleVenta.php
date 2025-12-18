@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DetalleVenta extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'detalle_venta';
     protected $primaryKey = 'id_detalle';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'venta_id',
@@ -18,6 +21,10 @@ class DetalleVenta extends Model
         'subtotal',
     ];
 
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
+    
     // El detalle pertenece a una venta
     public function venta()
     {

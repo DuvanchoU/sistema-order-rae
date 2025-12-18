@@ -10,6 +10,9 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\BodegaController;
+use App\Http\Controllers\VentaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\MetodoPagoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,3 +53,14 @@ Route::resource('proveedores', ProveedorController::class)
 // Ruta de Bodegas
 Route::resource('bodegas', BodegaController::class)
     ->parameters(['bodegas' => 'bodega']);
+
+// Ruta de Ventas
+Route::resource('ventas', VentaController::class)
+    ->except(['edit', 'update']);
+
+// Ruta de Clientes
+Route::resource('clientes', ClienteController::class);
+
+// Ruta de Metodo De Pago
+Route::resource('metodos_pago', MetodoPagoController::class)
+    ->parameters(['metodos_pago'=> 'metodopago']);

@@ -33,4 +33,9 @@
 <p class="text-3xl font-bold">{{ $totalRoles }}</p>
 </div>
 
+<div class="bg-white p-6 rounded-xl shadow">
+<h3 class="text-sm text-gray-500">Ventas</h3>
+<p class="text-3xl font-bold">{{ $totalVentas }}</p>
+</div>
+
 @endsection

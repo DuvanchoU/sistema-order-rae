@@ -12,8 +12,8 @@ class UpdateInventarioRequest extends FormRequest
     {
         return [
             'producto_id' => 'required|exists:producto,id_producto',
-            'bodega_id' => 'required|exists:bodega,id_bodega',
-            'proveedor_id' => 'nullable|exists:proveedor,id_proveedor',
+            'bodega_id' => 'required|exists:bodegas,id_bodega',
+            'proveedor_id' => 'nullable|exists:proveedores,id_proveedor',
             'cantidad_disponible' => 'required|integer|min:0|max:100000',
             'fecha_llegada' => 'nullable|date',
             'estado' => 'required|in:DISPONIBLE,COMPROMITIDO,AGOTADO',

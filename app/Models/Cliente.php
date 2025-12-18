@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'clientes';
     protected $primaryKey = 'id_cliente';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'nombre',
@@ -20,9 +23,17 @@ class Cliente extends Model
         'estado',
     ];
 
-    /**
-     * Ventas realizadas al cliente
-     */
+    protected $casts = [
+        'fecha_registro' => 'datetime',
+        'deleted_at' => 'datetime',
+    ];
+
+    public function getRouteKeyName()
+    {
+        return 'id_cliente';
+    }
+    
+    // Ventas realizadas al cliente
     public function ventas()
     {
         return $this->hasMany(
@@ -32,9 +43,7 @@ class Cliente extends Model
         );
     }
 
-    /**
-     * Pedidos realizados por el cliente
-     */
+    // Pedidos realizados por el cliente
     public function pedidos()
     {
         return $this->hasMany(

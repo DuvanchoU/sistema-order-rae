@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Venta extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'ventas';
     protected $primaryKey = 'id_venta';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'usuario_id',
@@ -17,6 +20,11 @@ class Venta extends Model
         'total_venta',
         'estado_venta',
         'metodo_pago_id',
+    ];
+
+    protected $casts = [
+        'fecha_venta' => 'datetime',
+        'deleted_at'  => 'datetime',
     ];
 
     // Una venta la realiza un usuario (vendedor)
