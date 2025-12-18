@@ -23,13 +23,16 @@ class="bg-[#EFE6D8] w-64 p-6 transition-all duration-300"
 
 
 <nav class="space-y-3">
-<a href="/dashboard" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Panel de Control</a>
-<a href="/productos" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Productos</a>
-<a href="/categorias" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Categorías</a>
-<a href="/produccion" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Producciones</a>
-<a href="/usuarios" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Usuarios</a>
-<a href="/roles" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Roles</a>
-</nav>
+        <a href="/dashboard" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Panel de Control</a>
+        <a href="/bodegas" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Bodegas</a>
+        <a href="/categorias" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Categorías</a>
+        <a href="/inventario" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Inventario</a>
+        <a href="/produccion" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Producciones</a>
+        <a href="/productos" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Productos</a>
+        <a href="/proveedores" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Proveedores</a>
+        <a href="/roles" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Roles</a>
+        <a href="/usuarios" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Usuarios</a>
+    </nav>
 </aside>
 
 

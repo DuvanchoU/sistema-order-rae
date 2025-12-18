@@ -13,7 +13,6 @@
 <p class="text-3xl font-bold">{{ $totalProductos }}</p>
 </div>
 
-
 <div class="bg-white p-6 rounded-xl shadow">
 <h3 class="text-sm text-gray-500">Categorías</h3>
 <p class="text-3xl font-bold">{{ $totalCategorias }}</p>

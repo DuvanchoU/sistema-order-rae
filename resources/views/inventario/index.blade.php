@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Usuarios')
+@section('title', 'Gestión de Inventario')
 
 @section('content')
 <div class="bg-[#F8F5F0] min-h-screen px-6 py-6">
+
+    {{-- Header --}}
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Usuarios del Sistema</h1>
-        <a href="{{ route('usuarios.create') }}"
+        <h1 class="text-2xl font-bold text-gray-800">Inventario</h1>
+        <a href="{{ route('inventario.create') }}"
            class="px-4 py-2 bg-[#CBB8A0] hover:bg-[#B9A489] text-white rounded-lg font-medium transition shadow-sm">
-            + Nuevo Usuario
+            + Nuevo Registro
         </a>
     </div>
 
@@ -24,70 +26,74 @@
 
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Documento</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Correo</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rol</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Producto</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Bodega</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Proveedor</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cantidad</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Llegada</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Acciones</th>
                 </tr>
             </thead>
 
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($usuarios as $u)
+                @forelse($inventarios as $inv)
 
                     @php
-                        $genero = match($u->genero) {
-                            'M' => 'Masculino',
-                            'F' => 'Femenino',
-                            default => 'No especificado'
+                        $estadoClases = match($inv->estado) {
+                            'DISPONIBLE' => 'bg-green-100 text-green-800',
+                            'COMPROMETIDO' => 'bg-yellow-100 text-yellow-800',
+                            default => 'bg-red-100 text-red-800'
                         };
                     @endphp
 
                     <tr class="hover:bg-gray-50 transition">
                         <td class="px-6 py-4 text-sm">
                             <div class="font-medium text-gray-900">
-                                {{ $u->nombres }} {{ $u->apellidos }}
+                                {{ $inv->producto->codigo_producto }}
                             </div>
-                            <div class="text-xs text-gray-500">{{ $genero }}</div>
+                            <div class="text-xs text-gray-500">
+                                {{ $inv->producto->referencia_producto ?? 'Sin referencia' }}
+                            </div>
                         </td>
 
                         <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ $u->documento }}
+                            {{ $inv->bodega->nombre_bodega ?? 'Sin bodega' }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm text-gray-700">
+                            {{ $inv->proveedor->nombre_proveedor ?? 'Sin proveedor' }}
+                        </td>
+
+                        <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                            {{ $inv->cantidad_disponible }}
                         </td>
 
                         <td class="px-6 py-4 text-sm text-gray-500">
-                            {{ $u->correo_usuario }}
+                            {{ $inv->fecha_llegada?->format('d/m/Y') ?? '—' }}
                         </td>
 
                         <td class="px-6 py-4 text-sm">
-                            <span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                {{ $u->rol?->nombre_rol ?? 'Sin rol' }}
-                            </span>
-                        </td>
-
-                        <td class="px-6 py-4 text-sm">
-                            <span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full
-                                {{ $u->estado === 'ACTIVO' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ $u->estado }}
+                            <span class="px-2.5 py-0.5 inline-flex text-xs font-semibold rounded-full {{ $estadoClases }}">
+                                {{ $inv->estado }}
                             </span>
                         </td>
 
                         <td class="px-6 py-4 text-sm">
                             <div class="flex gap-2">
-                                <a href="{{ route('usuarios.show', $u->id_usuario) }}"
+                                <a href="{{ route('inventario.show', $inv->id_inventario) }}"
                                    class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium hover:bg-blue-200 transition">
                                     Ver
                                 </a>
-                                <a href="{{ route('usuarios.edit', $u->id_usuario) }}"
+                                <a href="{{ route('inventario.edit', $inv->id_inventario) }}"
                                    class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-md text-xs font-medium hover:bg-yellow-200 transition">
                                     Editar
                                 </a>
-                                <form action="{{ route('usuarios.destroy', $u->id_usuario) }}" method="POST">
+                                <form action="{{ route('inventario.destroy', $inv->id_inventario) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            onclick="return confirm('¿Dar de baja este usuario?')"
+                                            onclick="return confirm('¿Eliminar este registro de inventario?')"
                                             class="px-2.5 py-1 bg-red-100 text-red-700 rounded-md text-xs font-medium hover:bg-red-200 transition">
                                         Eliminar
                                     </button>
@@ -98,8 +104,8 @@
 
                 @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-6 text-center text-gray-500">
-                            No hay usuarios registrados.
+                        <td colspan="7" class="px-6 py-6 text-center text-gray-500">
+                            No hay registros de inventario.
                         </td>
                     </tr>
                 @endforelse
@@ -109,7 +115,7 @@
     </div>
 
     <div class="mt-6">
-        {{ $usuarios->links() }}
+        {{ $inventarios->links() }}
     </div>
 
 </div>

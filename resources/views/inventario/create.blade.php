@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Nueva Producción')
+@section('title', 'Nuevo Registro de Inventario')
 
 @section('content')
 <div class="max-w-3xl mx-auto px-4 py-6">
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">Registrar Nueva Producción</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Registrar Nuevo Inventario</h1>
         </div>
 
         @if ($errors->any())
@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <form action="{{ route('produccion.store') }}" method="POST">
+        <form action="{{ route('inventario.store') }}" method="POST">
             @csrf
 
             <!-- Producto -->
@@ -41,82 +41,93 @@
                 </select>
             </div>
 
-            <!-- Cantidad producida -->
+            <!-- Bodega -->
             <div class="mb-5">
-                <label for="cantidad_producida" class="block text-sm font-medium text-gray-700 mb-1">Cantidad Producida *</label>
+                <label for="bodega_id" class="block text-sm font-medium text-gray-700 mb-1">Bodega *</label>
+                <select
+                    name="bodega_id"
+                    id="bodega_id"
+                    class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
+                    required
+                >
+                    <option value="">-- Seleccione una bodega --</option>
+                    @foreach($bodegas as $bodega)
+                        <option value="{{ $bodega->id_bodega }}" {{ old('bodega_id') == $bodega->id_bodega ? 'selected' : '' }}>
+                            {{ $bodega->nombre_bodega }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Proveedor -->
+            <div class="mb-5">
+                <label for="proveedor_id" class="block text-sm font-medium text-gray-700 mb-1">Proveedor</label>
+                <select
+                    name="proveedor_id"
+                    id="proveedor_id"
+                    class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
+                >
+                    <option value="">-- Sin proveedor --</option>
+                    @foreach($proveedores as $proveedor)
+                        <option value="{{ $proveedor->id_proveedor }}" {{ old('proveedor_id') == $proveedor->id_proveedor ? 'selected' : '' }}>
+                            {{ $proveedor->nombre }} ({{ $proveedor->telefono ?? 'Sin contacto' }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Cantidad disponible -->
+            <div class="mb-5">
+                <label for="cantidad_disponible" class="block text-sm font-medium text-gray-700 mb-1">Cantidad Disponible *</label>
                 <input
                     type="number"
-                    name="cantidad_producida"
-                    id="cantidad_producida"
-                    value="{{ old('cantidad_producida', 1) }}"
-                    min="1"
-                    max="10000"
+                    name="cantidad_disponible"
+                    id="cantidad_disponible"
+                    value="{{ old('cantidad_disponible', 0) }}"
+                    min="0"
+                    max="100000"
                     class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
                     required
                 >
             </div>
 
-            <!-- Fecha de inicio -->
+            <!-- Fecha de llegada -->
             <div class="mb-5">
-                <label for="fecha_inicio" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Inicio</label>
+                <label for="fecha_llegada" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Llegada</label>
                 <input
                     type="date"
-                    name="fecha_inicio"
-                    id="fecha_inicio"
-                    value="{{ old('fecha_inicio') }}"
-                    class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
-                >
-            </div>
-
-            <!-- Fecha de fin -->
-            <div class="mb-5">
-                <label for="fecha_fin" class="block text-sm font-medium text-gray-700 mb-1">Fecha de Finalización</label>
-                <input
-                    type="date"
-                    name="fecha_fin"
-                    id="fecha_fin"
-                    value="{{ old('fecha_fin') }}"
+                    name="fecha_llegada"
+                    id="fecha_llegada"
+                    value="{{ old('fecha_llegada') }}"
                     class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
                 >
             </div>
 
             <!-- Estado -->
             <div class="mb-5">
-                <label for="estado_produccion" class="block text-sm font-medium text-gray-700 mb-1">Estado *</label>
+                <label for="estado" class="block text-sm font-medium text-gray-700 mb-1">Estado *</label>
                 <select
-                    name="estado_produccion"
-                    id="estado_produccion"
+                    name="estado"
+                    id="estado"
                     class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
                     required
                 >
                     <option value="">-- Seleccione estado --</option>
-                    <option value="POR COMENZAR" {{ old('estado_produccion') == 'POR COMENZAR' ? 'selected' : '' }}>POR COMENZAR</option>
-                    <option value="EN PROCESO" {{ old('estado_produccion') == 'EN PROCESO' ? 'selected' : '' }}>EN PROCESO</option>
-                    <option value="TERMINADO" {{ old('estado_produccion') == 'TERMINADO' ? 'selected' : '' }}>TERMINADO</option>
+                    <option value="DISPONIBLE" {{ old('estado') == 'DISPONIBLE' ? 'selected' : '' }}>DISPONIBLE</option>
+                    <option value="COMPROMETIDO" {{ old('estado') == 'COMPROMETIDO' ? 'selected' : '' }}>COMPROMETIDO</option>
+                    <option value="AGOTADO" {{ old('estado') == 'AGOTADO' ? 'selected' : '' }}>AGOTADO</option>
                 </select>
-            </div>
-
-            <!-- Observaciones -->
-            <div class="mb-6">
-                <label for="observaciones" class="block text-sm font-medium text-gray-700 mb-1">Observaciones</label>
-                <textarea
-                    name="observaciones"
-                    id="observaciones"
-                    rows="3"
-                    class="w-full px-3 py-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-marron-oscuro focus:border-marron-oscuro"
-                >{{ old('observaciones') }}</textarea>
-                <p class="mt-1 text-xs text-gray-500">Máximo 1,000 caracteres.</p>
             </div>
 
             <!-- Botones -->
             <div class="flex justify-end gap-3">
-                <a href="{{ route('produccion.index') }}"
+                <a href="{{ route('inventario.index') }}"
                    class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md font-medium hover:bg-gray-300 transition">
                     Cancelar
                 </a>
                 <button type="submit"
                         class="px-4 py-2 bg-[#CBB8A0] hover:bg-[#B9A489] text-white rounded-lg font-medium transition shadow-sm">
-                    Guardar Producción
+                    Guardar Inventario
                 </button>
             </div>
         </form>

@@ -7,6 +7,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\BodegaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +38,15 @@ Route::resource('usuarios', UsuariosController::class)
 // Ruta de Roles
 Route::resource('roles', RolesController::class)
     ->parameters(['roles' => 'rol']);
+
+// Ruta de Inventario
+Route::resource('inventario', InventarioController::class)
+    ->parameters(['inventario' => 'inventario']);
+
+// Ruta de Proveedores
+Route::resource('proveedores', ProveedorController::class)
+    ->parameters(['proveedores' => 'proveedor']);
+
+// Ruta de Bodegas
+Route::resource('bodegas', BodegaController::class)
+    ->parameters(['bodegas' => 'bodega']);

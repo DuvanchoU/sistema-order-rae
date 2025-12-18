@@ -18,9 +18,7 @@ class DetalleVenta extends Model
         'subtotal',
     ];
 
-    /**
-     * El detalle pertenece a una venta
-     */
+    // El detalle pertenece a una venta
     public function venta()
     {
         return $this->belongsTo(
@@ -30,9 +28,7 @@ class DetalleVenta extends Model
         );
     }
 
-    /**
-     * El detalle pertenece a un producto
-     */
+    // El detalle pertenece a un producto
     public function producto()
     {
         return $this->belongsTo(

@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Compra;
+use App\Models\Inventario;
 
 class Proveedor extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'proveedores';
     protected $primaryKey = 'id_proveedor';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'nombre',
@@ -18,9 +23,9 @@ class Proveedor extends Model
         'estado',
     ];
 
-    /**
-     * Compras realizadas a este proveedor
-     */
+    protected $dates = ['deleted_at'];
+
+    // Compras realizadas a este proveedor
     public function compras()
     {
         return $this->hasMany(
@@ -30,9 +35,7 @@ class Proveedor extends Model
         );
     }
 
-    /**
-     * Registros de inventario asociados al proveedor
-     */
+    // Registros de inventario asociados al proveedor
     public function inventarios()
     {
         return $this->hasMany(

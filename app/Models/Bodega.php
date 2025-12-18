@@ -3,12 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Inventario;
+
 
 class Bodega extends Model
-{
+{   
+    use SoftDeletes; 
+
     protected $table = 'bodegas';
     protected $primaryKey = 'id_bodega';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'nombre_bodega',
@@ -16,9 +21,9 @@ class Bodega extends Model
         'estado',
     ];
 
-    /**
-     * Una bodega tiene muchos registros de inventario
-     */
+    protected $dates = ['deleted_at'];
+    
+    // Una bodega tiene muchos registros de inventario
     public function inventarios()
     {
         return $this->hasMany(

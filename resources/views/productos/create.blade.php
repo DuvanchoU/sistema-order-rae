@@ -99,7 +99,7 @@
             <a href="{{ route('productos.index') }}" 
                class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md font-medium hover:bg-gray-300 transition">Cancelar</a>
             <button type="submit" 
-                    class="px-4 py-2 bg-marron-oscuro text-white rounded-md font-medium hover:bg-[#5f3d2a] transition shadow-sm">
+                    class="px-4 py-2 bg-[#CBB8A0] hover:bg-[#B9A489] text-white rounded-lg font-medium transition shadow-sm">
                 Guardar Producto
             </button>
         </div>

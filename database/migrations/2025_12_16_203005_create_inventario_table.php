@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    // Ejecutar las migraciones.
     public function up(): void
     {
         Schema::create('inventario', function (Blueprint $table) {
@@ -23,9 +21,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    // Reversar las migraciones.  
     public function down(): void
     {
         Schema::dropIfExists('inventario');

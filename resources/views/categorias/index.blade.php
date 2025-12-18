@@ -4,6 +4,8 @@
 
 @section('content')
 <div class="bg-[#F8F5F0] min-h-screen px-6 py-6">
+
+    {{-- Header --}}
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Categorías</h1>
         <a href="{{ route('categorias.create') }}" 
@@ -13,7 +15,7 @@
     </div>
 
     @if (session('success'))
-        <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">{{ session('success') }}</div>
+        <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg text-center">{{ session('success') }}</div>
     @endif
     @if ($errors->any())
         <div class="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">{{ $errors->first() }}</div>

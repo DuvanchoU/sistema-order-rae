@@ -7,8 +7,6 @@
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Editar Rol</h1>
-            <a href="{{ route('roles.index') }}"
-               class="text-sm text-gray-600 hover:text-gray-800 font-medium">← Volver</a>
         </div>
 
         @if ($errors->any())
@@ -59,7 +57,7 @@
                     Cancelar
                 </a>
                 <button type="submit"
-                        class="px-4 py-2 bg-marron-oscuro text-white rounded-md font-medium hover:bg-[#5f3d2a] transition shadow-sm">
+                        class="px-4 py-2 bg-[#CBB8A0] hover:bg-[#B9A489] text-white rounded-lg font-medium transition shadow-sm">
                     Actualizar Rol
                 </button>
             </div>

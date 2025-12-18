@@ -19,9 +19,7 @@ class Venta extends Model
         'metodo_pago_id',
     ];
 
-    /**
-     * Una venta la realiza un usuario (vendedor)
-     */
+    // Una venta la realiza un usuario (vendedor)
     public function usuario()
     {
         return $this->belongsTo(
@@ -31,9 +29,7 @@ class Venta extends Model
         );
     }
 
-    /**
-     * Una venta pertenece a un cliente
-     */
+    // Una venta pertenece a un cliente
     public function cliente()
     {
         return $this->belongsTo(
@@ -43,9 +39,7 @@ class Venta extends Model
         );
     }
 
-    /**
-     * Método de pago usado en la venta
-     */
+    // Método de pago usado en la venta
     public function metodoPago()
     {
         return $this->belongsTo(
@@ -55,9 +49,7 @@ class Venta extends Model
         );
     }
 
-    /**
-     * Una venta tiene muchos detalles
-     */
+    // Una venta tiene muchos detalles
     public function detalles()
     {
         return $this->hasMany(

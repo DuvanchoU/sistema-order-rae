@@ -16,7 +16,7 @@
 
     {{-- Alert --}}
     @if (session('success'))
-        <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg">
+        <div class="mb-6 p-4 bg-green-100 text-green-700 rounded-lg text-center">
             {{ session('success') }}
         </div>
     @endif
