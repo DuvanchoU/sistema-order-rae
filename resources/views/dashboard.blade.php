@@ -24,4 +24,14 @@
 <p class="text-3xl font-bold">{{ $totalProducciones }}</p>
 </div>
 
+<div class="bg-white p-6 rounded-xl shadow">
+<h3 class="text-sm text-gray-500">Usuarios</h3>
+<p class="text-3xl font-bold">{{ $totalUsuarios }}</p>
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow">
+<h3 class="text-sm text-gray-500">Roles</h3>
+<p class="text-3xl font-bold">{{ $totalRoles }}</p>
+</div>
+
 @endsection

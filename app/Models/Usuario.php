@@ -3,12 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Roles;
+use App\Models\Venta;
+use App\Models\Compra;
+use App\Models\Pedido;
 
 class Usuario extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'usuarios';
     protected $primaryKey = 'id_usuario';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'nombres',
@@ -26,9 +33,12 @@ class Usuario extends Model
         'contrasena_usuario'
     ];
 
-    /**
-     * Usuario pertenece a un rol
-     */
+    protected $casts = [
+        'fecha_registro' => 'datetime',
+        'deleted_at'     => 'datetime',
+    ];
+
+    //Usuario pertenece a un rol    
     public function rol()
     {
         return $this->belongsTo(
@@ -38,9 +48,7 @@ class Usuario extends Model
         );
     }
 
-    /**
-     * Ventas realizadas por el usuario
-     */
+    // Ventas realizadas por el usuario   
     public function ventas()
     {
         return $this->hasMany(
@@ -50,9 +58,7 @@ class Usuario extends Model
         );
     }
 
-    /**
-     * Compras registradas por el usuario
-     */
+    //Compras registradas por el usuario
     public function compras()
     {
         return $this->hasMany(
@@ -62,9 +68,7 @@ class Usuario extends Model
         );
     }
 
-    /**
-     * Pedidos gestionados por el usuario
-     */
+    // Pedidos gestionados por el usuario
     public function pedidos()
     {
         return $this->hasMany(

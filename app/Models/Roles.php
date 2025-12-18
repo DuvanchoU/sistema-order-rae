@@ -3,21 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Permiso;
+use App\Models\Usuario;
 
 class Roles extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'roles';
     protected $primaryKey = 'id_rol';
-    public $timestamps = false;
+    public $timestamps = true;
 
+    public function getRouteKeyName()
+    {
+        return 'id_rol';
+    }
+    
     protected $fillable = [
         'nombre_rol',
         'descripcion',
     ];
 
-    /**
-     * Permisos asociados a este rol
-     */
+    protected $dates = ['deleted_at'];
+    
+    // Permisos asociados a este rol   
     public function permisos()
     {
         return $this->belongsToMany(
@@ -28,9 +38,7 @@ class Roles extends Model
         );
     }
 
-    /**
-     * Usuarios que tienen este rol
-     */
+    // Usuarios que tienen este rol
     public function usuarios()
     {
         return $this->hasMany(
