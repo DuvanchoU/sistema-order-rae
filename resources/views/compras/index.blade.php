@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Listado de Ventas')
+@section('title', 'Listado de Compras')
 
 @section('content')
 <div class="bg-[#F8F5F0] min-h-screen px-6 py-6">
 
     {{-- Header --}}
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-gray-800">Ventas</h1>
-        <a href="{{ route('ventas.create') }}"
+        <h1 class="text-2xl font-bold text-gray-800">Compras</h1>
+        <a href="{{ route('compras.create') }}"
            class="px-4 py-2 bg-[#CBB8A0] hover:bg-[#B9A489] text-white rounded-lg font-medium transition shadow-sm">
-            + Nueva Venta
+            + Nueva Compra
         </a>
     </div>
 
@@ -22,9 +22,9 @@
     @endif
 
     {{-- Sin registros --}}
-    @if ($ventas->isEmpty())
+    @if ($compras->isEmpty())
         <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center text-gray-500">
-            No hay ventas registradas.
+            No hay registros de compras.
         </div>
     @else
 
@@ -34,16 +34,16 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Proveedor
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Usuario
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Fecha
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Cliente
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Vendedor
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Total
+                            Total ($)
                         </th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Estado
@@ -55,50 +55,57 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($ventas as $v)
+                    @foreach ($compras as $compra)
 
                         @php
-                            $estadoClases = match ($v->estado_venta) {
-                                'COMPLETADA'   => 'bg-green-100 text-green-800',
-                                'PENDIENTE'    => 'bg-yellow-100 text-yellow-800',
-                                'CANCELADA'    => 'bg-red-100 text-red-800',
-                                default        => 'bg-gray-100 text-gray-800',
+                            $estadoClases = match ($compra->estado) {
+                                'RECIBIDA'   => 'bg-green-100 text-green-800',
+                                'PENDIENTE'  => 'bg-yellow-100 text-yellow-800',
+                                'CANCELADA'  => 'bg-red-100 text-red-800',
+                                default      => 'bg-gray-100 text-gray-800',
                             };
                         @endphp
 
                         <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $v->fecha_venta?->format('d/m/Y H:i') }}
-                            </td>
-
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                {{ $v->cliente?->nombre ?? '—' }}
+                                <div class="font-medium text-gray-900">
+                                    {{ $compra->proveedor?->nombre?? '—' }}
+                                </div>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $v->usuario->nombres ?? '—' }}
+                                {{ $compra->usuario?->nombres ?? '—' }}
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                ${{ number_format($v->total_venta, 2, ',', '.') }}
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $compra->fecha_compra?->format('d/m/Y') ?? '—' }}
+                            </td>
+
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                {{ number_format($compra->total_compra, 2, ',', '.') }}
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="inline-flex px-2.5 py-0.5 text-xs font-semibold rounded-full {{ $estadoClases }}">
-                                    {{ $v->estado_venta }}
+                                    {{ $compra->estado }}
                                 </span>
                             </td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <div class="flex gap-2">
-                                    <a href="{{ route('ventas.show', $v->id_venta) }}"
+                                    <a href="{{ route('compras.show', $compra->id_compra) }}"
                                        class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium hover:bg-blue-200 transition">
                                         Ver
                                     </a>
 
-                                    <form action="{{ route('ventas.destroy', $v->id_venta) }}"
+                                    <a href="{{ route('compras.edit', $compra->id_compra) }}"
+                                       class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-md text-xs font-medium hover:bg-yellow-200 transition">
+                                        Editar
+                                    </a>
+
+                                    <form action="{{ route('compras.destroy', $compra->id_compra) }}"
                                           method="POST"
-                                          onsubmit="return confirm('¿Eliminar esta venta? Esta acción es irreversible.')">
+                                          onsubmit="return confirm('¿Eliminar esta compra? Se eliminará lógicamente.')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -116,7 +123,7 @@
         </div>
 
         <div class="mt-6">
-            {{ $ventas->links() }}
+            {{ $compras->links() }}
         </div>
 
     @endif

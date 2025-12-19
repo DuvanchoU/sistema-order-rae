@@ -52,4 +52,5 @@ class Cliente extends Model
             'id_cliente'
         );
     }
+    
 }

@@ -62,7 +62,7 @@
                         </td>
 
                         <td class="px-6 py-4 text-sm text-gray-700">
-                            {{ $inv->proveedor->nombre_proveedor ?? 'Sin proveedor' }}
+                            {{ $inv->proveedor->nombre ?? 'Sin proveedor' }}
                         </td>
 
                         <td class="px-6 py-4 text-sm font-medium text-gray-800">

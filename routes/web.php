@@ -13,6 +13,8 @@ use App\Http\Controllers\BodegaController;
 use App\Http\Controllers\VentaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MetodoPagoController;
+use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\CompraController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,3 +66,11 @@ Route::resource('clientes', ClienteController::class);
 // Ruta de Metodo De Pago
 Route::resource('metodos_pago', MetodoPagoController::class)
     ->parameters(['metodos_pago'=> 'metodopago']);
+
+// Ruta de Pedido
+Route::resource('pedidos', PedidoController::class)
+    ->parameters(['pedidos'=> 'pedido']);
+
+// Ruta de Compras
+Route::resource('compras', CompraController::class)
+    ->parameters(['compras' => 'compra']);

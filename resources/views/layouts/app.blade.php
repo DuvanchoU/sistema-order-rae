@@ -27,8 +27,10 @@ class="bg-[#EFE6D8] w-64 p-6 transition-all duration-300"
         <a href="/bodegas" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Bodegas</a>
         <a href="/categorias" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Categorías</a>
         <a href="/clientes" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Clientes</a>
+        <a href="/compras" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Compras</a>
         <a href="/inventario" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Inventario</a>
         <a href="/metodos_pago" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Metodos de Pago</a>
+        <a href="/pedidos" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Pedidos</a>
         <a href="/produccion" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Producciones</a>
         <a href="/productos" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Productos</a>
         <a href="/proveedores" class="block px-3 py-2 rounded hover:bg-[#E3D6C4]">Proveedores</a>

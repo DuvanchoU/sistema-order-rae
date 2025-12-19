@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pedido extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'pedido';
     protected $primaryKey = 'id_pedido';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'usuario_id',
@@ -20,9 +23,10 @@ class Pedido extends Model
         'direccion_entrega',
     ];
 
-    /**
-     * Pedido registrado por un usuario
-     */
+    protected $dates = ['deleted_at'];
+
+
+    // Pedido registrado por un usuario
     public function usuario()
     {
         return $this->belongsTo(
@@ -32,9 +36,7 @@ class Pedido extends Model
         );
     }
 
-    /**
-     * Pedido pertenece a un cliente
-     */
+    // Pedido pertenece a un cliente
     public function cliente()
     {
         return $this->belongsTo(
@@ -44,9 +46,7 @@ class Pedido extends Model
         );
     }
 
-    /**
-     * Un pedido puede generar una venta
-     */
+    // Un pedido puede generar una venta
     public function venta()
     {
         return $this->hasOne(
@@ -54,5 +54,10 @@ class Pedido extends Model
             'pedido_id',
             'id_pedido'
         );
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id_pedido';
     }
 }

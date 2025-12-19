@@ -77,4 +77,9 @@ class Usuario extends Model
             'id_usuario'
         );
     }
+
+    public function getRouteKeyName()
+    {
+        return 'id_usuario';
+    }
 }

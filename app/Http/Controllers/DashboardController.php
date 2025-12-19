@@ -8,6 +8,8 @@ use App\Models\Produccion;
 use App\Models\Roles;
 use App\Models\Usuario;
 use App\Models\Venta;
+use App\Models\Pedido;
+use App\Models\Compra;
 
 class DashboardController extends Controller
 {
@@ -20,6 +22,8 @@ class DashboardController extends Controller
             'totalRoles' => \App\Models\Roles::count(),
             'totalUsuarios' => \App\Models\Usuario::count(),
             'totalVentas'=> \App\Models\Venta::count(),
+            'totalPedidos'=> \App\Models\Pedido::count(),
+            'totalCompras'=> \App\Models\Compra::count(),
         ]);
     }
 }

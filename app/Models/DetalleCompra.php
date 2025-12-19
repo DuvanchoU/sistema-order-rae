@@ -18,9 +18,7 @@ class DetalleCompra extends Model
         'subtotal',
     ];
 
-    /**
-     * Un detalle PERTENECE A una compra
-     */
+    // Un detalle PERTENECE A una compra
     public function compra()
     {
         return $this->belongsTo(
@@ -30,9 +28,7 @@ class DetalleCompra extends Model
         );
     }
 
-    /**
-     * Un detalle PERTENECE A un producto
-     */
+    // detalle PERTENECE A un producto
     public function producto()
     {
         return $this->belongsTo(

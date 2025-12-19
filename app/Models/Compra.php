@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Compra extends Model
-{
+{   
+    use SoftDeletes;
+
     protected $table = 'compras';
     protected $primaryKey = 'id_compra';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'proveedor_id',
@@ -19,9 +22,12 @@ class Compra extends Model
         'usuario_id',
     ];
 
-    /**
-     * Una compra PERTENECE A un proveedor
-     */
+    protected $casts = [
+        'deleted_at' => 'datetime',
+        'fecha_compra' => 'date', // esto convierte automáticamente a Carbon
+    ];
+
+    // Una compra PERTENECE A un proveedor
     public function proveedor()
     {
         return $this->belongsTo(
@@ -31,9 +37,7 @@ class Compra extends Model
         );
     }
 
-    /**
-     * Una compra PERTENECE A un usuario
-     */
+    // Una compra PERTENECE A un usuario
     public function usuario()
     {
         return $this->belongsTo(
@@ -43,9 +47,7 @@ class Compra extends Model
         );
     }
 
-    /**
-     * Una compra TIENE MUCHOS detalles
-     */
+    // Una compra TIENE MUCHOS detalles
     public function detalles()
     {
         return $this->hasMany(
@@ -53,5 +55,11 @@ class Compra extends Model
             'compra_id',
             'id_compra'
         );
+    }
+
+    // Para route model binding
+    public function getRouteKeyName()
+    {
+        return 'id_compra';
     }
 }
